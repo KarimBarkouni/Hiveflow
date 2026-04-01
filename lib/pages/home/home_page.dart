@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../bottom_navbar.dart';
 import '../knowledge_hub/capacity_building.dart';
@@ -247,7 +248,7 @@ class HomePage extends StatelessWidget {
                           );
                       }),
                     ],
-                  ),
+                  ),/*
                   const SizedBox(height: 20),
                   Text(
                     "Upcoming Conferences",
@@ -271,6 +272,9 @@ class HomePage extends StatelessWidget {
                       _quickCard('assets/icons/conference.svg', "Ministerial Conference", primary,),
                     ],
                   ),
+
+                 */
+
                   const SizedBox(height: 20),
                   Text(
                     "Sectors",
@@ -289,13 +293,54 @@ class HomePage extends StatelessWidget {
                     mainAxisSpacing: 15,
                     childAspectRatio: 0.9,
                     children: [
-                      _quickCard('assets/icons/study.svg', "Education", primary,),
-                      _quickCard('assets/icons/laptop.svg', "Science & Environment", primary,),
-                      _quickCard('assets/icons/brain.svg', "Human & Social science", primary,),
-                      _quickCard('assets/icons/sound_wave.svg', "Culture & Communication", primary,),
-                      _quickCard('assets/icons/internet.svg', "Partnerships", primary,),
-                      _quickCard('assets/icons/strategy.svg', "Strategy", primary, ),
-                      _quickCard('assets/icons/media.svg', "Media & Communication", primary,),
+                      _quickCard(
+                        'assets/icons/study.svg',
+                        "Education",
+                        primary,
+                            () => _showPopup(context, "Sector Leader", "Mrs. HADDY JATOU SEY","education@icesco.org"),
+                      ),
+
+                      _quickCard(
+                        'assets/icons/laptop.svg',
+                        "Science & Environment",
+                        primary,
+                            () => _showPopup(context, "Sector Leader", "Prof. Dr. Raheel Qamar","science@icesco.org"),
+                      ),
+
+                      _quickCard(
+                        'assets/icons/brain.svg',
+                        "Human & Social science",
+                        primary,
+                            () => _showPopup(context, "Sector Leader", "Mrs. Ramata Almamy Mbaye","shs@icesco.org"),
+                      ),
+
+                      _quickCard(
+                        'assets/icons/sound_wave.svg',
+                        "Culture & Communication",
+                        primary,
+                            () => _showPopup(context, "Sector Leader", "Mr. Mohammed Zine Alabidine","culture@icesco.org"),
+                      ),
+
+                      _quickCard(
+                        'assets/icons/internet.svg',
+                        "Partnerships",
+                        primary,
+                            () => _showPopup(context, "Sector Leader", "Mr. ANAR KARIMOV","cooperation@icesco.org"),
+                      ),
+
+                      _quickCard(
+                        'assets/icons/strategy.svg',
+                        "Strategy",
+                        primary,
+                            () => _showPopup(context, "Sector Leader", "Dr. MABROUK Sally","cabdg@icesco.org"),
+                      ),
+
+                      _quickCard(
+                        'assets/icons/media.svg',
+                        "Media & Communication",
+                        primary,
+                            () => _showPopup(context, "Sector Leader", "Mr. Osama Heikal","press@icesco.org"),
+                      ),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -316,12 +361,12 @@ class HomePage extends StatelessWidget {
                     mainAxisSpacing: 15,
                     childAspectRatio: 0.9,
                     children: [
-                      _quickCard('assets/icons/ai.svg', "Foresight & AI", primary,),
-                      _quickCard('assets/icons/dialogue.svg', "Civilizational dialogue", primary,),
-                      _quickCard('assets/icons/translation1.svg', "Arabic for non speakers", primary,),
-                      _quickCard('assets/icons/school.svg', "Chairs, Scholarships & Prizes", primary,),
-                      _quickCard('assets/icons/mosque.svg', "Islamic world heritage", primary,),
-                      _quickCard('assets/icons/translation2.svg', "Translation & Publishing", primary,),
+                      _quickCard('assets/icons/ai.svg', "Foresight & AI", primary,() => _showPopup(context, "Center Leader", "Dr. Kais Hammami","foresight@icesco.org")),
+                      _quickCard('assets/icons/dialogue.svg', "Civilizational dialogue", primary,() => _showPopup(context, "Center Leader", "Ambassador Khalid Fathalrahman","ddc@icesco.org")),
+                      _quickCard('assets/icons/translation1.svg', "Arabic for non speakers", primary,() => _showPopup(context, "Center Leader", "Prof. Dr. Majdi Ibrahim","arabic@icesco.org")),
+                      _quickCard('assets/icons/school.svg', "Chairs, Scholarships & Prizes", primary,() => _showPopup(context, "Center Leader", "Prof. Patrick Daouda","scholarships@icesco.org")),
+                      _quickCard('assets/icons/mosque.svg', "Islamic world heritage", primary,() => _showPopup(context, "Center Leader", "Dr. Webber Ndoro","heritage@icesco.org")),
+                      _quickCard('assets/icons/translation2.svg', "Translation & Publishing", primary,() => _showPopup(context, "Center Leader", "Dr. ALBANYAN Ahmed Abdullah","tpc@icesco.org")),
                     ],
                   ),
                 ],
@@ -332,47 +377,206 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+  void _showPopup(
+      BuildContext context,
+      String title,
+      String message,
+      String mail,
+      ) {
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) {
+        final primary = Theme.of(context).colorScheme.primary;
 
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+
+                /// 🔹 Top Icon
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: primary.withOpacity(0.1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.support_agent,
+                    color: primary,
+                    size: 30,
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                /// 🔹 Title
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: primary,
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                /// 🔹 Message
+                Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.black87,
+                    height: 1.4,
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+
+                /// 🔹 Email box
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 12, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.email_outlined,
+                          size: 18, color: Colors.grey),
+                      const SizedBox(width: 8),
+                      Flexible(
+                        child: Text(
+                          mail,
+                          style: const TextStyle(
+                            color: Colors.black54,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                /// 🔹 Buttons
+                Row(
+                  children: [
+
+                    /// Close button
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: () => Navigator.pop(context),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text("Close"),
+                      ),
+                    ),
+
+                    const SizedBox(width: 10),
+
+                    /// Copy email button
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Clipboard.setData(ClipboardData(text: mail));
+                          Navigator.pop(context);
+
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Email copied to clipboard"),
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: primary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: const Text(
+                          "Copy",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
   /// 🔹 Quick Access Card
   static Widget _quickCard(
-  String svgPath,
-  String title,
-  Color primary,
-) {
-  return Container(
-    decoration: BoxDecoration(
-      color: const Color.fromRGBO(15, 115, 120, 0.06),
+      String svgPath,
+      String title,
+      Color primary,
+      VoidCallback onTap,
+      ) {
+    return InkWell(
+      onTap: onTap,
       borderRadius: BorderRadius.circular(25),
-      boxShadow: [
-      BoxShadow(
-        color: Colors.black.withOpacity(0.05),
-        blurRadius: 15,
-        offset: const Offset(0, 6),
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color.fromRGBO(15, 115, 120, 0.06),
+          borderRadius: BorderRadius.circular(25),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 15,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              svgPath,
+              width: 30,
+              height: 30,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: primary,
+              ),
+            ),
+          ],
+        ),
       ),
-    ],
-    ),
-    padding: const EdgeInsets.all(12),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SvgPicture.asset(
-          svgPath,
-          width: 30,
-          height: 30,
-        ),
-        const SizedBox(height: 12),
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: primary,
-          ),
-        ),
-      ],
-    ),
-  );
-}
+    );
+  }
 
   static Widget _quickClickCard(
   String svgPath,

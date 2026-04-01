@@ -14,32 +14,32 @@ class ProNetwork extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: theme.colorScheme.surface,
         leading:
-          IconButton(
-            icon: Icon(Icons.arrow_back_ios_new, color: primary),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) =>
-                      BottomNavBar(initialIndex: 2,),
-                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                    const begin = Offset(-1.0, 0.0);
-                    const end = Offset.zero;
-                    const curve = Curves.easeInOut;
+        IconButton(
+          icon: Icon(Icons.arrow_back_ios_new, color: primary),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    BottomNavBar(initialIndex: 2,),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(-1.0, 0.0);
+                  const end = Offset.zero;
+                  const curve = Curves.easeInOut;
 
-                    var tween = Tween(begin: begin, end: end)
-                        .chain(CurveTween(curve: curve));
-                    var offsetAnimation = animation.drive(tween);
+                  var tween = Tween(begin: begin, end: end)
+                      .chain(CurveTween(curve: curve));
+                  var offsetAnimation = animation.drive(tween);
 
-                    return SlideTransition(
-                      position: offsetAnimation,
-                      child: child,
-                    );
-                  },
-                ),
-              );
-            },
-          ),
+                  return SlideTransition(
+                    position: offsetAnimation,
+                    child: child,
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -93,38 +93,38 @@ class ProNetwork extends StatelessWidget {
             const SizedBox(height: 20),
             ExpertCard(
               country: "Morocco",
-              flagUrl: "https://flagcdn.com/w40/ma.png",
+              flagImage: "assets/images/morocco.png",
               name: "AMAGHOUD Mohamed",
               title: "Head of the Education and Training Department",
               organization: "Haut Commissariat au Plan",
-              imageUrl: "https://randomuser.me/api/portraits/men/1.jpg",
+              imagePath: "assets/images/profile.png",
             ),
 
             ExpertCard(
               country: "Mauritania",
-              flagUrl: "https://flagcdn.com/w40/mr.png",
+              flagImage: "assets/images/mauritania.png",
               name: "Abdela Aziz Naji",
               title: "Directeur des Stratégies et de la Coopération",
               organization: "Ministère de l'Éducation",
-              imageUrl: "https://randomuser.me/api/portraits/men/2.jpg",
+              imagePath: "assets/images/profile.png",
             ),
 
             ExpertCard(
               country: "Qatar",
-              flagUrl: "https://flagcdn.com/w40/qa.png",
+              flagImage: "assets/images/qatar.png",
               name: "Ahmed Mahmoud Abdelbaqi Awad",
               title: "Arabic language standards specialist",
               organization: "Ministry of Education and Higher Education",
-              imageUrl: "https://randomuser.me/api/portraits/men/3.jpg",
+              imagePath: "assets/images/profile.png",
             ),
 
             ExpertCard(
               country: "Qatar",
-              flagUrl: "https://flagcdn.com/w40/qa.png",
+              flagImage: "assets/images/qatar.png",
               name: "Ahmed Mahmoud Abdelbaqi Awad",
               title: "Arabic language standards specialist",
               organization: "Ministry of Education and Higher Education",
-              imageUrl: "https://randomuser.me/api/portraits/men/3.jpg",
+              imagePath: "assets/images/profile.png",
             ),
           ],
         ),
@@ -134,20 +134,20 @@ class ProNetwork extends StatelessWidget {
 }
 class ExpertCard extends StatelessWidget {
   final String country;
-  final String flagUrl;
+  final String flagImage;
   final String name;
   final String title;
   final String organization;
-  final String imageUrl;
+  final String imagePath;
 
   const ExpertCard({
     super.key,
     required this.country,
-    required this.flagUrl,
+    required this.flagImage,
     required this.name,
     required this.title,
     required this.organization,
-    required this.imageUrl,
+    required this.imagePath,
   });
 
   @override
@@ -179,8 +179,8 @@ class ExpertCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(4),
-                    child: Image.network(
-                      flagUrl,
+                    child: Image.asset(
+                      flagImage,
                       width: 22,
                       height: 16,
                       fit: BoxFit.cover,
@@ -190,16 +190,16 @@ class ExpertCard extends StatelessWidget {
                   Text(
                     country,
                     style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14,
-                      color: Colors.black38
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        color: Colors.black38
                     ),
                   ),
                 ],
               ),
               Container(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.secondary,
                   borderRadius: BorderRadius.circular(20),
@@ -224,7 +224,7 @@ class ExpertCard extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 32,
-                backgroundImage: NetworkImage(imageUrl),
+                backgroundImage: AssetImage(imagePath),
               ),
               const SizedBox(width: 16),
 

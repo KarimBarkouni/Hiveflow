@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'home/home_page.dart';
 import 'knowledge_hub/knowledge_hub.dart';
@@ -10,7 +11,7 @@ import 'profile/edit_profile.dart';
 class BottomNavBar extends StatefulWidget {
   int initialIndex;
 
-   BottomNavBar({super.key, this.initialIndex = 0});
+  BottomNavBar({super.key, this.initialIndex = 0});
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -36,33 +37,36 @@ class _BottomNavBarState extends State<BottomNavBar> {
     _pageController = PageController(initialPage: _currentIndex);
   }
 
- void _onItemTapped(int index) {
-  setState(() {
-    _currentIndex = index;
-  });
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
 
-  _pageController.jumpToPage(index); 
-}
+    _pageController.jumpToPage(index);
+  }
 
-  Widget _buildNavItem(String svgPath, bool isSelected, int index) {
+  Widget _buildNavItem(String svgPathDark, String svgPathLight, bool isSelected, int index) {
+    final bool isSelected = _currentIndex == index;
+
     return GestureDetector(
       onTap: () => _onItemTapped(index),
+      behavior: HitTestBehavior.opaque,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           SvgPicture.asset(
-            svgPath,
+            isSelected ? svgPathDark : svgPathLight,
             color: Theme.of(context).colorScheme.primary,
             width: 30,
             height: 30,
-          ),
+          ),/*
           const SizedBox(height: 5),
           if (isSelected)
             Container(
               height: 3.5,
               width: 40,
               color: Theme.of(context).colorScheme.primary,
-            ),
+            ),*/
         ],
       ),
     );
@@ -81,7 +85,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
             child: Text("Cancel"),
           ),
           TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
+            onPressed: () {
+              Navigator.of(context).pop(true); // close dialog
+              Future.delayed(Duration(milliseconds: 100), () {
+                SystemNavigator.pop(); // 🚀 CLOSE APP
+              });
+            },
             child: Text("Exit",style: TextStyle(color:Colors.red)),
           ),
         ],
@@ -117,12 +126,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
             setState(() {
               _currentIndex = index;
             });
-        },
+          },
           children: _pages,
         ),
         bottomNavigationBar: SafeArea(
           child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 5 ),
+            margin: const EdgeInsets.symmetric(horizontal: 10,vertical: 5 ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               boxShadow: [
@@ -141,11 +150,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildNavItem('assets/icons/home.svg', _currentIndex  == 0, 0),
-                    _buildNavItem('assets/icons/people.svg',_currentIndex  == 1, 1),
-                    _buildNavItem('assets/icons/notebook.svg', _currentIndex == 2, 2),
-                    _buildNavItem('assets/icons/calender.svg', _currentIndex == 3, 3),
-                    _buildNavItem('assets/icons/profile.svg', _currentIndex == 4, 4),
+                    _buildNavItem('assets/icons/home_dark.svg', 'assets/icons/home.svg', _currentIndex == 0, 0),
+                    _buildNavItem('assets/icons/people_dark.svg', 'assets/icons/people_light.svg', _currentIndex == 1, 1),
+                    _buildNavItem('assets/icons/notebook_dark.svg', 'assets/icons/notebook.svg', _currentIndex == 2, 2),
+                    _buildNavItem('assets/icons/calender_dark.svg', 'assets/icons/calender.svg', _currentIndex == 3, 3),
+                    _buildNavItem('assets/icons/profile_dark.svg', 'assets/icons/profile.svg', _currentIndex == 4, 4),
                   ],
                 ),
               ),

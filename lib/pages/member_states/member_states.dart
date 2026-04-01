@@ -13,7 +13,7 @@ class _MemberStatesState extends State<MemberStates> {
   // Search controller and query
   final TextEditingController _searchController = TextEditingController();
   String searchQuery = "";
-  
+
 // Selected values
   String selectedRegion = "All Regions";
   String selectedLanguage = "All Languages";
@@ -29,7 +29,7 @@ class _MemberStatesState extends State<MemberStates> {
       "capital": "Rabat",
       "date": "18 November",
       "region": "Africa",
-      "flag": "https://flagcdn.com/w320/ma.png",
+      "flag":  "assets/images/morocco.png",
       "language": "Arabic",
       "leader": "His Majesty the King Mohammed VI",
     },
@@ -38,7 +38,7 @@ class _MemberStatesState extends State<MemberStates> {
       "capital": "Bakou",
       "date": "28 May",
       "region": "Asia",
-      "flag": "https://flagcdn.com/w320/az.png",
+      "flag":  "assets/images/azerbaijan.png",
       "language": "English",
       "leader": "His Excellency the President Ilham Aliyev",
     },
@@ -49,16 +49,16 @@ class _MemberStatesState extends State<MemberStates> {
     return countries.where((country) {
       final matchesRegion =
           selectedRegion == "All Regions" ||
-          country["region"] == selectedRegion;
+              country["region"] == selectedRegion;
 
       final matchesLanguage =
           selectedLanguage == "All Languages" ||
-          country["language"] == selectedLanguage;
+              country["language"] == selectedLanguage;
 
       final matchesSearch =
-          country["name"]!
-              .toLowerCase()
-              .contains(searchQuery);
+      country["name"]!
+          .toLowerCase()
+          .contains(searchQuery);
 
       return matchesRegion && matchesLanguage && matchesSearch;
     }).toList();
@@ -112,7 +112,7 @@ class _MemberStatesState extends State<MemberStates> {
               ),
               child:  TextField(
                 controller: _searchController,
-                style: const TextStyle(color: Colors.black), 
+                style: const TextStyle(color: Colors.black),
                 onChanged: (value) {
                   setState(() {
                     searchQuery = value.toLowerCase();
@@ -125,14 +125,14 @@ class _MemberStatesState extends State<MemberStates> {
                   border: InputBorder.none,
                   suffixIcon: searchQuery.isNotEmpty
                       ? IconButton(
-                          icon: const Icon(Icons.clear, color: Colors.black),
-                          onPressed: () {
-                            _searchController.clear();
-                            setState(() {
-                              searchQuery = "";
-                            });
-                          },
-                        )
+                    icon: const Icon(Icons.clear, color: Colors.black),
+                    onPressed: () {
+                      _searchController.clear();
+                      setState(() {
+                        searchQuery = "";
+                      });
+                    },
+                  )
                       : null,
                 ),
               ),
@@ -140,44 +140,44 @@ class _MemberStatesState extends State<MemberStates> {
             const SizedBox(height: 25),
 
             // 2. Filter Row
-        // Filter Row
-        Row(
-          children: [
-            const Text(
-              "Filter by:",
-              style: TextStyle(
-                color: Color(0xFF00696B),
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(width: 15),
+            // Filter Row
+            Row(
+              children: [
+                const Text(
+                  "Filter by:",
+                  style: TextStyle(
+                    color: Color(0xFF00696B),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(width: 15),
 
-            // Region Dropdown
-            _buildFunctionalDropdown(
-              value: selectedRegion,
-              items: regions,
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedRegion = newValue!;
-                });
-              },
-            ),
+                // Region Dropdown
+                _buildFunctionalDropdown(
+                  value: selectedRegion,
+                  items: regions,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedRegion = newValue!;
+                    });
+                  },
+                ),
 
-            const SizedBox(width: 10),
+                const SizedBox(width: 10),
 
-            // Language Dropdown
-            _buildFunctionalDropdown(
-              value: selectedLanguage,
-              items: languages,
-              onChanged: (String? newValue) {
-                setState(() {
-                  selectedLanguage = newValue!;
-                });
-              },
+                // Language Dropdown
+                _buildFunctionalDropdown(
+                  value: selectedLanguage,
+                  items: languages,
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      selectedLanguage = newValue!;
+                    });
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
             const SizedBox(height: 25),
 
             // 3. Country Grid
@@ -246,23 +246,23 @@ class _MemberStatesState extends State<MemberStates> {
   }
 
 
- Widget _buildCountryCard(
-  BuildContext context,
-  Map<String, String> country,
-) {
-  return GestureDetector(
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => CountryDetailsPage(
-            name: country["name"]!,
-            capital: country["capital"]!,
-            nationalDay: country["date"]!,
-            region: country["region"]!,
-            flagUrl: country["flag"]!,
-            language: country["language"]!,
-            leader: country["leader"]!,
+  Widget _buildCountryCard(
+      BuildContext context,
+      Map<String, String> country,
+      ) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => CountryDetailsPage(
+              name: country["name"]!,
+              capital: country["capital"]!,
+              nationalDay: country["date"]!,
+              region: country["region"]!,
+              flagImage: country["flag"]!,
+              language: country["language"]!,
+              leader: country["leader"]!,
             ),
           ),
         );
@@ -284,8 +284,8 @@ class _MemberStatesState extends State<MemberStates> {
           children: [
             ClipRRect(
               borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(15)),
-              child: Image.network(
+              const BorderRadius.vertical(top: Radius.circular(15)),
+              child: Image.asset(
                 country["flag"]!,
                 height: 100,
                 width: double.infinity,
@@ -315,7 +315,7 @@ class _MemberStatesState extends State<MemberStates> {
                   const SizedBox(height: 8),
                   Row(
                     mainAxisAlignment:
-                        MainAxisAlignment.spaceBetween,
+                    MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(
                         child: Text(
@@ -323,7 +323,7 @@ class _MemberStatesState extends State<MemberStates> {
                           style: const TextStyle(
                               fontSize: 9,
                               color:
-                                  Color.fromRGBO(15, 115, 120, 1)),
+                              Color.fromRGBO(15, 115, 120, 1)),
                         ),
                       ),
                       Container(
@@ -331,9 +331,9 @@ class _MemberStatesState extends State<MemberStates> {
                             horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color:
-                              const Color.fromRGBO(255, 202, 40, 1.0),
+                          const Color.fromRGBO(255, 202, 40, 1.0),
                           borderRadius:
-                              BorderRadius.circular(10),
+                          BorderRadius.circular(10),
                         ),
                         child: Text(country["region"]!,
                             style: const TextStyle(

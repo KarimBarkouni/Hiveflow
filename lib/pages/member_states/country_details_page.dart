@@ -7,7 +7,7 @@ class CountryDetailsPage extends StatelessWidget {
   final String capital;
   final String nationalDay;
   final String region;
-  final String flagUrl;
+  final String flagImage;
   final String language;
   final String leader;
 
@@ -17,8 +17,8 @@ class CountryDetailsPage extends StatelessWidget {
     required this.capital,
     required this.nationalDay,
     required this.region,
-    required this.flagUrl,
-    required this.language, 
+    required this.flagImage,
+    required this.language,
     required this.leader,
   });
 
@@ -32,44 +32,44 @@ class CountryDetailsPage extends StatelessWidget {
         backgroundColor: theme.colorScheme.primary,
         title: Text("Country Details",style: TextStyle(color: theme.colorScheme.onSurface,fontWeight: FontWeight.bold)),
         leading:
-          IconButton(
-            icon: Icon(Icons.arrow_back_ios_new, color: theme.colorScheme.onSurface),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) =>
-                      BottomNavBar( initialIndex: 1),
-                  transitionsBuilder: (context, animation, secondaryAnimation, child) {
-                    const begin = Offset(-1.0, 0.0);
-                    const end = Offset.zero;
-                    const curve = Curves.easeInOut;
+        IconButton(
+          icon: Icon(Icons.arrow_back_ios_new, color: theme.colorScheme.onSurface),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    BottomNavBar( initialIndex: 1),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  const begin = Offset(-1.0, 0.0);
+                  const end = Offset.zero;
+                  const curve = Curves.easeInOut;
 
-                    var tween = Tween(begin: begin, end: end)
-                        .chain(CurveTween(curve: curve));
-                    var offsetAnimation = animation.drive(tween);
+                  var tween = Tween(begin: begin, end: end)
+                      .chain(CurveTween(curve: curve));
+                  var offsetAnimation = animation.drive(tween);
 
-                    return SlideTransition(
-                      position: offsetAnimation,
-                      child: child,
-                    );
-                  },
-                ),
-              );
-            },
-          ),
+                  return SlideTransition(
+                    position: offsetAnimation,
+                    child: child,
+                  );
+                },
+              ),
+            );
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-           
+
 
             // Rounded Card Container
             Container(
-            
+
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary, 
-             
+                color: theme.colorScheme.primary,
+
               ),
               child: Column(
                 children: [
@@ -84,8 +84,8 @@ class CountryDetailsPage extends StatelessWidget {
                         // Flag
                         ClipRRect(
                           borderRadius: BorderRadius.circular(15),
-                          child: Image.network(
-                            flagUrl,
+                          child: Image.asset(
+                            flagImage,
                             width: 140,
                             height: 110,
                             fit: BoxFit.cover,
@@ -165,77 +165,77 @@ class CountryDetailsPage extends StatelessWidget {
                 ],
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Contact Information",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.primary,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Contact Information",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 5),
+                    const SizedBox(height: 5),
 
-                  Row(
-                    children: [
-                      Icon(Icons.email, size: 18, color: Colors.black54),
-                      const SizedBox(width: 8),
-                      TextButton(
-                        onPressed: () {
-                          // Handle email button press
-                        },
-                        child: Text(
-                          "contact@nationalcommission.com",
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 14,
+                    Row(
+                      children: [
+                        Icon(Icons.email, size: 18, color: Colors.black54),
+                        const SizedBox(width: 8),
+                        TextButton(
+                          onPressed: () {
+                            // Handle email button press
+                          },
+                          child: Text(
+                            "contact@nationalcommission.com",
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  
-                  const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        "assets/icons/internet.svg",
-                        color: Colors.black54,
-                        width: 18,
-                        height: 18,
-                      ),
-                      const SizedBox(width: 8),
-                      TextButton(
-                        onPressed: (){},
-                        child: Text(
-                          "http://www.natcom.gov/",
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
 
-                  const SizedBox(height: 5),
-                  Row(
-                    children: [
-                      Icon( Icons.phone, size: 18, color: Colors.black54),
-                      const SizedBox(width: 8),
-                      TextButton(
-                        onPressed: (){},
-                        child: Text(
-                          "+123 456 7890 / +123 456 7891",
-                          style: TextStyle(
-                            color: Colors.black54,
-                            fontSize: 14,
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          "assets/icons/internet.svg",
+                          color: Colors.black54,
+                          width: 18,
+                          height: 18,
+                        ),
+                        const SizedBox(width: 8),
+                        TextButton(
+                          onPressed: (){},
+                          child: Text(
+                            "http://www.natcom.gov/",
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 14,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ]
+                      ],
+                    ),
+
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        Icon( Icons.phone, size: 18, color: Colors.black54),
+                        const SizedBox(width: 8),
+                        TextButton(
+                          onPressed: (){},
+                          child: Text(
+                            "+123 456 7890 / +123 456 7891",
+                            style: TextStyle(
+                              color: Colors.black54,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ]
               ),
             ),
             SizedBox(height: 20),
@@ -262,7 +262,7 @@ class CountryDetailsPage extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 32,
-                        backgroundImage: NetworkImage("https://randomuser.me/api/portraits/men/1.jpg"),
+                        backgroundImage: AssetImage("assets/images/profile.png",),
                       ),
                       const SizedBox(width: 16),
 
@@ -327,7 +327,7 @@ class CountryDetailsPage extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 32,
-                        backgroundImage: NetworkImage("https://randomuser.me/api/portraits/men/4.jpg"),
+                        backgroundImage: AssetImage("assets/images/profile2.png",),
                       ),
                       const SizedBox(width: 16),
 
@@ -369,48 +369,48 @@ class CountryDetailsPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                             const SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Divider(height: 1, thickness: 1, color: Colors.black12),
-                              const SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.email, size: 10, color: Colors.black54),
-                                    const SizedBox(width: 8),
-                                    TextButton(
-                                      onPressed: () {
-                                        // Handle email button press
-                                      },
-                                      child: Text(
-                                        "contact@nationalcommission.com",
-                                        style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 12,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(Icons.email, size: 10, color: Colors.black54),
+                                      const SizedBox(width: 8),
+                                      TextButton(
+                                        onPressed: () {
+                                          // Handle email button press
+                                        },
+                                        child: Text(
+                                          "contact@nationalcommission.com",
+                                          style: TextStyle(
+                                            color: Colors.black54,
+                                            fontSize: 12,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Icon( Icons.phone, size: 10, color: Colors.black54),
-                                    const SizedBox(width: 8),
-                                    TextButton(
-                                      onPressed: (){},
-                                      child: Text(
-                                        "+123 456 7890 / +123 456 7891",
-                                        style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 12,
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon( Icons.phone, size: 10, color: Colors.black54),
+                                      const SizedBox(width: 8),
+                                      TextButton(
+                                        onPressed: (){},
+                                        child: Text(
+                                          "+123 456 7890 / +123 456 7891",
+                                          style: TextStyle(
+                                            color: Colors.black54,
+                                            fontSize: 12,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ]
-                            ),  
+                                    ],
+                                  ),
+                                ]
+                            ),
                           ],
                         ),
                       ),
@@ -418,8 +418,8 @@ class CountryDetailsPage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),  
-             const SizedBox(height: 30),
+            ),
+            const SizedBox(height: 30),
             Center(
               child:Text( "Related Ministers",
                 style: TextStyle(
@@ -455,7 +455,7 @@ class CountryDetailsPage extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 32,
-                        backgroundImage: NetworkImage("https://randomuser.me/api/portraits/men/1.jpg"),
+                        backgroundImage: AssetImage("assets/images/profile.png",),
                       ),
                       const SizedBox(width: 16),
 
@@ -520,7 +520,7 @@ class CountryDetailsPage extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 32,
-                        backgroundImage: NetworkImage("https://randomuser.me/api/portraits/men/1.jpg"),
+                        backgroundImage: AssetImage("assets/images/profile.png",),
                       ),
                       const SizedBox(width: 16),
 
@@ -585,7 +585,7 @@ class CountryDetailsPage extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 32,
-                        backgroundImage: NetworkImage("https://randomuser.me/api/portraits/men/1.jpg"),
+                        backgroundImage: AssetImage("assets/images/profile.png"),
                       ),
                       const SizedBox(width: 16),
 
@@ -663,7 +663,7 @@ class CountryDetailsPage extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 32,
-                        backgroundImage: NetworkImage("https://randomuser.me/api/portraits/men/4.jpg"),
+                        backgroundImage: AssetImage("assets/images/profile2.png",),
                       ),
                       const SizedBox(width: 16),
 
@@ -689,46 +689,46 @@ class CountryDetailsPage extends StatelessWidget {
                             ),
                             const SizedBox(height: 10),
                             Divider(height: 1, thickness: 1, color: Colors.black12),
-                              const SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(Icons.email, size: 10, color: Colors.black54),
-                                    const SizedBox(width: 8),
-                                    TextButton(
-                                      onPressed: () {
-                                        // Handle email button press
-                                      },
-                                      child: Text(
-                                        "contact@nationalcommission.com",
-                                        style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 12,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(Icons.email, size: 10, color: Colors.black54),
+                                      const SizedBox(width: 8),
+                                      TextButton(
+                                        onPressed: () {
+                                          // Handle email button press
+                                        },
+                                        child: Text(
+                                          "contact@nationalcommission.com",
+                                          style: TextStyle(
+                                            color: Colors.black54,
+                                            fontSize: 12,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Icon( Icons.phone, size: 10, color: Colors.black54),
-                                    const SizedBox(width: 8),
-                                    TextButton(
-                                      onPressed: (){},
-                                      child: Text(
-                                        "+123 456 7890 / +123 456 7891",
-                                        style: TextStyle(
-                                          color: Colors.black54,
-                                          fontSize: 12,
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Icon( Icons.phone, size: 10, color: Colors.black54),
+                                      const SizedBox(width: 8),
+                                      TextButton(
+                                        onPressed: (){},
+                                        child: Text(
+                                          "+123 456 7890 / +123 456 7891",
+                                          style: TextStyle(
+                                            color: Colors.black54,
+                                            fontSize: 12,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ]
-                            ),  
+                                    ],
+                                  ),
+                                ]
+                            ),
                           ],
                         ),
                       ),
@@ -736,8 +736,8 @@ class CountryDetailsPage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),  
-             const SizedBox(height: 30),
+            ),
+            const SizedBox(height: 30),
           ],
         ),
       ),
